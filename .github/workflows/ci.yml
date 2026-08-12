@@ -32,6 +32,9 @@ jobs:
         run: python -m pytest -q
       
       # TODO 2: Add a step that builds the Docker image.
+      - name: Downcase repository name
+        run: echo "IMAGE_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
 
